@@ -1,3 +1,4 @@
+import argparse
 import os
 import re
 
@@ -8,10 +9,27 @@ from pyspark.streaming import kafka as kstreaming
 
 
 def main():
-    intopic = os.getenv('IN_TOPIC', 'word-fountain')
-    outtopic = os.getenv('OUT_TOPIC', 'word-filter')
-    servers = os.getenv('SERVERS', 'localhost:9092')
-    regexp = os.getenv('REGEX', '.*')
+    parser = argparse.ArgumentParser(
+        description='filter some words on a kafka topic')
+    parser.add_argument('--in', default='word-fountain', dest='intopic',
+        help='the kafka topic to read words from')
+    parser.add_argument('--out', default='word-filter',
+        help='the kafka topic to publish filtered words on')
+    parser.add_argument('--regex', default='.*',
+        help='the regular expression to use as a filter')
+    parser.add_argument('--servers', default='localhost:9092',
+        help='the kafka brokers')
+    args = parser.parse_args()
+    intopic = args.intopic
+    outtopic = args.out
+    regexp = args.regex
+    servers = args.servers
+
+    print('using the following parameters:')
+    print('input topic: {}'.format(intopic))
+    print('output topic: {}'.format(outtopic))
+    print('regexp: "{}"'.format(regexp))
+    print('servers: {}'.format(servers))
 
     sc = pyspark.SparkContext(appName='word-filter')
     ssc = streaming.StreamingContext(sc, 3)
