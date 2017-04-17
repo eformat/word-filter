@@ -42,8 +42,8 @@ application.
    contain at least one capital letter
    ```bash
    oc new-app --template=oshinko-pyspark-build-dc \
-              -p APPLICATION_NAME=grafzahl \
-              -p GIT_URI=https://github.com/mattf/grafzahl \
+              -p APPLICATION_NAME=word-filter \
+              -p GIT_URI=https://github.com/elmiko/word-filter \
               -p APP_ARGS='--servers=apache-kafka:9092 --regex="[A-Z]"'  \
               -p SPARK_OPTIONS='--packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.1.0'
    ```
