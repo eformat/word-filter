@@ -38,7 +38,8 @@ application.
 1. Install and start the [grafzahl](http://radanalytics.io/applications/grafzahl#installation)
    application, including Apache Kafka, and word-fountain
 
-1. Start the word-filter
+1. Start the word-filter, the regex specified will filter all words that
+   contain at least one capital letter
    ```bash
    oc new-app --template=oshinko-pyspark-build-dc \
               -p APPLICATION_NAME=grafzahl \
@@ -62,4 +63,4 @@ application.
    ```
 
 Now navigate to the second grafzahl application with your web browser to view
-the filtere output results.
+the filtered output results..
